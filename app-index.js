@@ -15,8 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
-// Signup function
+/// Signup function
 function signup() {
+    console.log('Signup function triggered.');  // Add this line
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -31,6 +32,7 @@ function signup() {
             console.error("Error:", errorCode, errorMessage);
         });
 }
+
 
 // Login function
 function login() {
