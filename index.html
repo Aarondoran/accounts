@@ -3,18 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Login</title>
-  <!-- Include your JavaScript file -->
+  <title>Firebase Authentication</title>
+  <!-- Include Firebase SDK -->
   <script type="module" src="app.js"></script>
 </head>
 <body>
+  <!-- Your HTML for registration -->
+  <div id="registration-container">
+    <h2>Register</h2>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="test@gmail.com" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="Test123" required><br>
+    <div id="error-message-registration"></div>
+    <button onclick="register()">Register</button>
+  </div>
+
   <!-- Your HTML for login -->
   <div id="login-container">
+    <h2>Login</h2>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+    <input type="email" id="email" name="email" value="test@gmail.com" required><br>
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <div id="error-message"></div>
+    <input type="password" id="password" name="password" value="Test123" required><br>
+    <div id="error-message-login"></div>
     <button onclick="login()">Login</button>
   </div>
 </body>
