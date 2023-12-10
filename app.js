@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 
 // Function to handle login
 window.login = async function () {
-  alert("button clicked")
+  alert("button clicked");
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const errorMessageContainer = document.getElementById('error-message-login');
@@ -66,7 +66,7 @@ window.login = async function () {
 
 // Function to handle user registration
 window.register = async function () {
-  alert("button clicked")
+  alert("button clicked");
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const errorMessageContainer = document.getElementById('error-message-registration');
