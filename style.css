@@ -40,7 +40,7 @@ input {
   box-sizing: border-box;
 }
 
-.error-message {
+#error-message {
   color: red;
   margin-bottom: 16px;
 }
