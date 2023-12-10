@@ -1,6 +1,6 @@
 // Import the necessary functions from the Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your Firebase configuration
 const firebaseConfig = {
@@ -14,6 +14,42 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Function to handle login
+window.login = async function () {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorMessageContainer = document.getElementById('error-message-login');
+
+  try {
+    const auth = getAuth();
+    await signInWithEmailAndPassword(auth, email, password);
+
+    // Check if the user's email is verified
+    if (auth.currentUser && auth.currentUser.emailVerified) {
+      // User logged in successfully and email is verified
+      alert("User logged in successfully");
+      // Redirect to the dashboard after successful login
+      window.location.replace('dashboard.html');
+    } else {
+      // User's email is not verified, inform the user
+      alert("Please verify your email before accessing the dashboard.");
+      // Redirect to the login page
+      window.location.replace('index.html');
+    }
+
+    // Clear any previous error messages
+    errorMessageContainer.innerHTML = '';
+  } catch (error) {
+    // Handle errors
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(`Login error: ${errorCode} - ${errorMessage}`);
+
+    // Display error message in red
+    errorMessageContainer.innerHTML = errorMessage;
+  }
+};
 
 // Function to handle user registration
 window.register = async function () {
@@ -39,47 +75,7 @@ window.register = async function () {
   } catch (error) {
     // Handle errors
     const errorMessage = error.message;
-    console.error("Registration error:", errorMessage);
-    alert("Registration error: " + errorMessage);
-
-    // Display error message in red
-    errorMessageContainer.innerHTML = errorMessage;
-  }
-};
-
-// Function to handle login
-window.login = async function () {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const errorMessageContainer = document.getElementById('error-message-login');
-
-  try {
-    const auth = getAuth();
-    await signInWithEmailAndPassword(auth, email, password);
-
-    // Check if the user's email is verified
-    if (auth.currentUser && auth.currentUser.emailVerified) {
-      // User logged in successfully and email is verified
-      console.log("User logged in:", auth.currentUser);
-      alert("User logged in:", auth.currentUser);
-      alert("User logged in successfully");
-
-      // Redirect to the dashboard after successful login
-      window.location.replace('dashboard.html');
-    } else {
-      // User's email is not verified, inform the user
-      alert("Please verify your email before accessing the dashboard.");
-      // Redirect to the login page
-      window.location.replace('index.html');
-    }
-
-    // Clear any previous error messages
-    errorMessageContainer.innerHTML = '';
-  } catch (error) {
-    // Handle errors
-    const errorMessage = error.message;
-    console.error("Login error:", errorMessage);
-    alert("Login error: " + errorMessage);
+    alert(`Registration error: ${errorMessage}`);
 
     // Display error message in red
     errorMessageContainer.innerHTML = errorMessage;
