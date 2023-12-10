@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 // Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
+  apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
   authDomain: "accounttest-9455c.firebaseapp.com",
   projectId: "accounttest-9455c",
   storageBucket: "accounttest-9455c.appspot.com",
@@ -28,6 +28,9 @@ window.register = async function () {
     // User registered successfully
     console.log("User registered:", auth.currentUser);
     alert("User registered successfully");
+
+    // Redirect to the dashboard after successful registration
+    window.location.replace('dashboard.html');
 
     // Clear any previous error messages
     errorMessageContainer.innerHTML = '';
@@ -55,6 +58,9 @@ window.login = async function () {
     // User logged in successfully
     console.log("User logged in:", auth.currentUser);
     alert("User logged in successfully");
+
+    // Redirect to the dashboard after successful login
+    window.location.replace('dashboard.html');
 
     // Clear any previous error messages
     errorMessageContainer.innerHTML = '';
