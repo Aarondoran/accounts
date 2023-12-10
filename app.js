@@ -14,8 +14,6 @@ firebase.initializeApp(firebaseConfig);
 
 // Function to handle login
 function login() {
-  alert("Attempting login...");
-
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
   var errorMessageContainer = document.getElementById('error-message');
@@ -33,7 +31,6 @@ function login() {
     })
     .catch((error) => {
       // Handle errors
-      var errorCode = error.code;
       var errorMessage = error.message;
       console.error("Login error:", errorMessage);
       alert("Login error: " + errorMessage);
