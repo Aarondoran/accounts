@@ -14,6 +14,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+alert("firebase initialized");
+console.log("Firebase initialized");
 
 // Function to handle login
 window.login = async function () {
