@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Authentication</title>
+  <title>Firebase Login</title>
+
   <!-- Include Firebase SDK -->
-  <script type="module" src="app.js"></script>
-  <link rel="stylesheet" href="style.css">
-
+  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth.js"></script>
 </head>
+<script src="app.js"></script>
 <body>
-  <!-- Your HTML for registration -->
-  <div id="registration-container">
-    <h2>Register</h2>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <div id="error-message-registration"></div>
-    <button onclick="register()">Register</button>
-  </div>
 
-  <!-- Your HTML for login -->
+  <!-- Your HTML for login and register forms -->
   <div id="login-container">
-    <h2>Login</h2>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <div id="error-message-login"></div>
-    <button onclick="login()">Login</button>
+    <h2>Welcome!</h2>
+    <div id="login-form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br>
+
+      <div id="error-message" class="error-message"></div>
+
+      <button onclick="login()">Login</button>
+      <p>Don't have an account? <a href="javascript:void(0);" onclick="toggleForm('register')">Register</a></p>
+    </div>
+
+    <div id="register-form" style="display: none;">
+      <label for="reg-email">Email:</label>
+      <input type="email" id="reg-email" name="reg-email" required><br>
+
+      <label for="reg-password">Password:</label>
+      <input type="password" id="reg-password" name="reg-password" required><br>
+
+      <div id="reg-error-message" class="error-message"></div>
+
+      <button onclick="register()">Register</button>
+      <p>Already have an account? <a href="javascript:void(0);" onclick="toggleForm('login')">Login</a></p>
+    </div>
   </div>
-  test version 2
+45
+  <script>
+    // Function to toggle between login and register forms
+    function toggleForm(form) {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+
+      if (form === 'register') {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+      } else {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+      }
+    }
+  </script>
+
 </body>
 </html>
