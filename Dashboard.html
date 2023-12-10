@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="dashboard-style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>User Dashboard</title>
 
   <!-- Include Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
@@ -13,22 +13,13 @@
 <script src="dashboard.js"></script>
 <body>
 
-  <!-- Your HTML for the dashboard -->
+  <!-- Your HTML for user dashboard -->
   <div id="dashboard-container">
-    <h2>Welcome to Your Dashboard!</h2>
+    <h2>Welcome, <span id="user-email"></span>!</h2>
 
-    <div>
-      <p>Email: <span id="user-email"></span></p>
-      <button onclick="changeEmail()">Change Email</button>
-    </div>
-
-    <div>
-      <button onclick="resetPassword()">Reset Password</button>
-    </div>
-
-    <div>
-      <button onclick="logout()">Logout</button>
-    </div>
+    <button onclick="sendPasswordResetEmail()">Reset Password</button>
+    <button onclick="changeEmail()">Change Email</button>
+    <button onclick="logout()">Logout</button>
   </div>
 
 </body>
