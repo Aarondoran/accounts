@@ -17,6 +17,7 @@ const app = initializeApp(firebaseConfig);
 
 // Function to handle login
 window.login = async function () {
+  alert("clicked");
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const errorMessageContainerLogin = document.getElementById('error-message-login');
