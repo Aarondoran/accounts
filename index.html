@@ -10,7 +10,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth.js"></script>
 </head>
-<script src="app.js"></script>
 <body>
   <h2>
     Aarondoran
@@ -38,37 +37,13 @@
       <label for="reg-password">Password:</label>
       <input type="password" id="reg-password" name="reg-password" required><br>
 
-      <div id="error-message-registration" class="error-message"></div>
+      <div id="reg-error-message" class="error-message"></div>
 
       <button onclick="register()">Register</button>
       <p>Already have an account? <a href="javascript:void(0);" onclick="toggleForm('login')">Login</a></p>
     </div>
   </div>
 
-  <script>
-    // Function to toggle between login and register forms
-    function toggleForm(form) {
-      const loginForm = document.getElementById('login-form');
-      const registerForm = document.getElementById('register-form');
-
-      if (form === 'register') {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-      } else {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-      }
-    }
-  </script>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8KCKLYKHV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Q8KCKLYKHV');
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>
