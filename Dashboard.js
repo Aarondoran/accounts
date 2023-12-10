@@ -15,17 +15,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Function to check if the user is logged in
+// Function to check if the user is logged in and email is verified
 onAuthStateChanged(getAuth(), (user) => {
   const dashboardContainer = document.getElementById('dashboard-container');
   const userEmailElement = document.getElementById('user-email');
 
-  if (user) {
-    // User is logged in
+  if (user && user.emailVerified) {
+    // User is logged in and email is verified
     dashboardContainer.style.display = 'block';
     userEmailElement.textContent = `Email: ${user.email}`;
+  } else if (user) {
+    // User is logged in but email is not verified, redirect to index.html
+    window.location.replace('index.html');
   } else {
-    // User is not logged in, redirect to the login page
+    // User is not logged in, redirect to index.html
     window.location.replace('index.html');
   }
 });
