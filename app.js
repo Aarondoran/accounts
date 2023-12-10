@@ -44,10 +44,22 @@ window.login = async function () {
     // Handle errors
     const errorCode = error.code;
     const errorMessage = error.message;
-    alert(`Login error: ${errorCode} - ${errorMessage}`);
 
     // Display error message in red
     errorMessageContainer.innerHTML = errorMessage;
+
+    // Handle specific error codes
+    switch (errorCode) {
+      case "auth/invalid-email":
+        alert("Invalid email address");
+        break;
+      case "auth/wrong-password":
+        alert("Wrong password");
+        break;
+      // Add more cases for other error codes as needed
+      default:
+        alert(`Login error: ${errorMessage}`);
+    }
   }
 };
 
@@ -74,7 +86,23 @@ window.register = async function () {
     errorMessageContainer.innerHTML = '';
   } catch (error) {
     // Handle errors
+    const errorCode = error.code;
     const errorMessage = error.message;
-    alert(`Registration error: ${errorMessage}`);
 
     // Display error message in red
+    errorMessageContainer.innerHTML = errorMessage;
+
+    // Handle specific error codes
+    switch (errorCode) {
+      case "auth/invalid-email":
+        alert("Invalid email address");
+        break;
+      case "auth/weak-password":
+        alert("Weak password. Please choose a stronger password.");
+        break;
+      // Add more cases for other error codes as needed
+      default:
+        alert(`Registration error: ${errorMessage}`);
+    }
+  }
+};
