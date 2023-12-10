@@ -1,6 +1,6 @@
 // Import the necessary functions from the Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your Firebase configuration
 const firebaseConfig = {
@@ -23,14 +23,16 @@ window.register = async function () {
 
   try {
     const auth = getAuth();
-    await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-    // User registered successfully
-    console.log("User registered:", auth.currentUser);
-    alert("User registered successfully");
+    // Send email verification
+    await sendEmailVerification(auth.currentUser);
 
-    // Redirect to the dashboard after successful registration
-    window.location.replace('dashboard.html');
+    // Inform the user to check their email for verification
+    alert("User registered successfully. Please check your email for verification.");
+
+    // Redirect to the login page after successful registration
+    window.location.replace('index.html');
 
     // Clear any previous error messages
     errorMessageContainer.innerHTML = '';
@@ -55,12 +57,20 @@ window.login = async function () {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, email, password);
 
-    // User logged in successfully
-    console.log("User logged in:", auth.currentUser);
-    alert("User logged in successfully");
+    // Check if the user's email is verified
+    if (auth.currentUser && auth.currentUser.emailVerified) {
+      // User logged in successfully and email is verified
+      console.log("User logged in:", auth.currentUser);
+      alert("User logged in successfully");
 
-    // Redirect to the dashboard after successful login
-    window.location.replace('dashboard.html');
+      // Redirect to the dashboard after successful login
+      window.location.replace('dashboard.html');
+    } else {
+      // User's email is not verified, inform the user
+      alert("Please verify your email before accessing the dashboard.");
+      // Redirect to the login page
+      window.location.replace('index.html');
+    }
 
     // Clear any previous error messages
     errorMessageContainer.innerHTML = '';
