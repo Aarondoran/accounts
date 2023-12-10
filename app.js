@@ -17,10 +17,9 @@ const app = initializeApp(firebaseConfig);
 
 // Function to handle login
 window.login = async function () {
-  alert("button clicked");
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const errorMessageContainer = document.getElementById('error-message-login');
+  const errorMessageContainerLogin = document.getElementById('error-message-login');
 
   try {
     const auth = getAuth();
@@ -40,14 +39,14 @@ window.login = async function () {
     }
 
     // Clear any previous error messages
-    errorMessageContainer.innerHTML = '';
+    errorMessageContainerLogin.innerHTML = '';
   } catch (error) {
     // Handle errors
     const errorCode = error.code;
     const errorMessage = error.message;
 
     // Display error message in red
-    errorMessageContainer.innerHTML = errorMessage;
+    errorMessageContainerLogin.innerHTML = errorMessage;
 
     // Handle specific error codes
     switch (errorCode) {
@@ -66,10 +65,9 @@ window.login = async function () {
 
 // Function to handle user registration
 window.register = async function () {
-  alert("button clicked");
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const errorMessageContainer = document.getElementById('error-message-registration');
+  const email = document.getElementById('reg-email').value;
+  const password = document.getElementById('reg-password').value;
+  const errorMessageContainerRegister = document.getElementById('error-message-register');
 
   try {
     const auth = getAuth();
@@ -85,14 +83,14 @@ window.register = async function () {
     window.location.replace('index.html');
 
     // Clear any previous error messages
-    errorMessageContainer.innerHTML = '';
+    errorMessageContainerRegister.innerHTML = '';
   } catch (error) {
     // Handle errors
     const errorCode = error.code;
     const errorMessage = error.message;
 
     // Display error message in red
-    errorMessageContainer.innerHTML = errorMessage;
+    errorMessageContainerRegister.innerHTML = errorMessage;
 
     // Handle specific error codes
     switch (errorCode) {
