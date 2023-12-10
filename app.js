@@ -17,17 +17,13 @@ const app = initializeApp(firebaseConfig);
 
 // Function to handle login
 window.login = async function () {
-  alert("Login function called");
-
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const errorMessageContainer = document.getElementById('error-message-login');
 
   try {
     const auth = getAuth();
-    alert("Before signInWithEmailAndPassword");
     await signInWithEmailAndPassword(auth, email, password);
-    alert("After signInWithEmailAndPassword");
 
     // Check if the user's email is verified
     if (auth.currentUser && auth.currentUser.emailVerified) {
