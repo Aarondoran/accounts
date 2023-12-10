@@ -61,6 +61,7 @@ window.login = async function () {
     if (auth.currentUser && auth.currentUser.emailVerified) {
       // User logged in successfully and email is verified
       console.log("User logged in:", auth.currentUser);
+      alert("User logged in:", auth.currentUser);
       alert("User logged in successfully");
 
       // Redirect to the dashboard after successful login
