@@ -78,6 +78,3 @@ window.register = async function () {
     alert(`Registration error: ${errorMessage}`);
 
     // Display error message in red
-    errorMessageContainer.innerHTML = errorMessage;
-  }
-};
