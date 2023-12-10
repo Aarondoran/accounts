@@ -1,3 +1,77 @@
+// Import the necessary functions from the Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-alert("Script loaded!");
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
+  authDomain: "accounttest-9455c.firebaseapp.com",
+  projectId: "accounttest-9455c",
+  storageBucket: "accounttest-9455c.appspot.com",
+  messagingSenderId: "1007166331537",
+  appId: "1:1007166331537:web:fd78772438dc2e0a723d30"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Function to handle login
+window.login = async function () {
+  alert("Login function called");
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorMessageContainer = document.getElementById('error-message-login');
+
+  try {
+    const auth = getAuth();
+    alert("Before signInWithEmailAndPassword");
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("After signInWithEmailAndPassword");
+
+    // Check if the user's email is verified
+    if (auth.currentUser && auth.currentUser.emailVerified) {
+      // User logged in successfully and email is verified
+      alert("User logged in successfully");
+      // Redirect to the dashboard after successful login
+      window.location.replace('dashboard.html');
+    } else {
+      // User's email is not verified, inform the user
+      alert("Please verify your email before accessing the dashboard.");
+      // Redirect to the login page
+      window.location.replace('index.html');
+    }
+
+    // Clear any previous error messages
+    errorMessageContainer.innerHTML = '';
+  } catch (error) {
+    // Handle errors
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    // Display error message in red
+    errorMessageContainer.innerHTML = errorMessage;
+
+    // Handle specific error codes
+    switch (errorCode) {
+      case "auth/invalid-email":
+        alert("Invalid email address");
+        break;
+      case "auth/wrong-password":
+        alert("Wrong password");
+        break;
+      // Add more cases for other error codes as needed
+      default:
+        alert(`Login error: ${errorMessage}`);
+    }
+  }
+};
+
+// Firebase authentication event logging
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("User is signed in:", user);
+  } else {
+    console.log("User is signed out.");
+  }
+});
