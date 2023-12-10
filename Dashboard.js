@@ -1,45 +1,58 @@
-// Import the necessary functions from the Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-// Your Firebase configuration
+// Your Firebase configuration (reuse the existing config)
 const firebaseConfig = {
-  apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
-  authDomain: "accounttest-9455c.firebaseapp.com",
-  projectId: "accounttest-9455c",
-  storageBucket: "accounttest-9455c.appspot.com",
-  messagingSenderId: "1007166331537",
-  appId: "1:1007166331537:web:fd78772438dc2e0a723d30"
+  apiKey: "AIzaSyDllgiG0OOU97Y_p-udHEK5yyV8hkjtY_o",
+  authDomain: "aarondoran-c1118.firebaseapp.com",
+  projectId: "aarondoran-c1118",
+  storageBucket: "aarondoran-c1118.appspot.com",
+  messagingSenderId: "893503265416",
+  appId: "1:893503265416:web:f71fe6bc73aca71d141d3d",
+  measurementId: "G-2SV0NB7YR5"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-// Function to check if the user is logged in and email is verified
-onAuthStateChanged(getAuth(), (user) => {
-  const dashboardContainer = document.getElementById('dashboard-container');
-  const userEmailElement = document.getElementById('user-email');
+// Get the currently authenticated user
+const user = firebase.auth().currentUser;
 
-  if (user && user.emailVerified) {
-    // User is logged in and email is verified
-    dashboardContainer.style.display = 'block';
-    userEmailElement.textContent = `Email: ${user.email}`;
-  } else if (user) {
-    // User is logged in but email is not verified, redirect to index.html
-    window.location.replace('index.html');
-  } else {
-    // User is not logged in, redirect to index.html
-    window.location.replace('index.html');
+// Display the user's email in the dashboard
+document.getElementById('user-email').innerText = user.email;
+
+// Function to send a password reset email
+function sendPasswordResetEmail() {
+  firebase.auth().sendPasswordResetEmail(user.email)
+    .then(() => {
+      alert("Password reset email sent. Check your inbox.");
+    })
+    .catch((error) => {
+      alert(`Error sending password reset email: ${error.message}`);
+    });
+}
+
+// Function to change user email
+function changeEmail() {
+  const newEmail = prompt("Enter your new email:");
+
+  if (newEmail) {
+    user.updateEmail(newEmail)
+      .then(() => {
+        alert("Email updated successfully. Check your new email for verification.");
+      })
+      .catch((error) => {
+        alert(`Error updating email: ${error.message}`);
+      });
   }
-});
+}
 
-// Function to handle logout
-window.logout = async function () {
-  try {
-    await signOut(getAuth());
-    // Redirect to the login page after logout
-    window.location.replace('index.html');
-  } catch (error) {
-    console.error("Logout error:", error.message);
-  }
-};
+// Function to handle user logout
+function logout() {
+  firebase.auth().signOut()
+    .then(() => {
+      alert("Logged out successfully.");
+      // Redirect to the login page after logout
+      window.location.replace('index.html');
+    })
+    .catch((error) => {
+      alert(`Error logging out: ${error.message}`);
+    });
+}
