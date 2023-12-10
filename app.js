@@ -1,10 +1,10 @@
 // Import the necessary functions from the Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
+    apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
   authDomain: "accounttest-9455c.firebaseapp.com",
   projectId: "accounttest-9455c",
   storageBucket: "accounttest-9455c.appspot.com",
@@ -15,11 +15,38 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Function to handle user registration
+window.register = async function () {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorMessageContainer = document.getElementById('error-message-registration');
+
+  try {
+    const auth = getAuth();
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    // User registered successfully
+    console.log("User registered:", auth.currentUser);
+    alert("User registered successfully");
+
+    // Clear any previous error messages
+    errorMessageContainer.innerHTML = '';
+  } catch (error) {
+    // Handle errors
+    const errorMessage = error.message;
+    console.error("Registration error:", errorMessage);
+    alert("Registration error: " + errorMessage);
+
+    // Display error message in red
+    errorMessageContainer.innerHTML = errorMessage;
+  }
+};
+
 // Function to handle login
 window.login = async function () {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const errorMessageContainer = document.getElementById('error-message');
+  const errorMessageContainer = document.getElementById('error-message-login');
 
   try {
     const auth = getAuth();
@@ -28,8 +55,6 @@ window.login = async function () {
     // User logged in successfully
     console.log("User logged in:", auth.currentUser);
     alert("User logged in successfully");
-
-    // Redirect or perform any other actions on successful login
 
     // Clear any previous error messages
     errorMessageContainer.innerHTML = '';
