@@ -1,7 +1,3 @@
-// Import the necessary functions from the Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendEmailVerification, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCYxe-9gU4ZqXfq3C2WYxD3nJjbDnNaLZE",
@@ -9,11 +5,13 @@ const firebaseConfig = {
   projectId: "accounttest-9455c",
   storageBucket: "accounttest-9455c.appspot.com",
   messagingSenderId: "1007166331537",
-  appId: "1:1007166331537:web:fd78772438dc2e0a723d30"
+  appId: "1:1007166331537:web:fd78772438dc2e0a723d30",
+  measurementId: "G-3JG6B4MF8Q"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics();
 
 // Function to toggle between login and register forms
 function toggleForm(form) {
@@ -36,8 +34,8 @@ window.login = async function () {
   const errorMessageContainer = document.getElementById('error-message');
 
   try {
-    const auth = getAuth();
-    await signInWithEmailAndPassword(auth, email, password);
+    const auth = firebase.auth();
+    await auth.signInWithEmailAndPassword(email, password);
 
     // Check if the user's email is verified
     if (auth.currentUser && auth.currentUser.emailVerified) {
@@ -84,11 +82,11 @@ window.register = async function () {
   const errorMessageContainer = document.getElementById('reg-error-message');
 
   try {
-    const auth = getAuth();
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const auth = firebase.auth();
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
 
     // Send email verification
-    await sendEmailVerification(auth.currentUser);
+    await userCredential.user.sendEmailVerification();
 
     // Inform the user to check their email for verification
     alert("User registered successfully. Please check your email for verification.");
