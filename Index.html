@@ -1,34 +1,48 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auth0 Login Example</title>
-  <!-- Include Auth0 SDK -->
+  <title>Auth0 Integration Example</title>
   <script src="https://cdn.auth0.com/js/auth0/9.17/auth0.min.js"></script>
 </head>
 <body>
 
-  <!-- HTML button for triggering login -->
   <button id="login-button">Login</button>
 
+  <div id="user-info"></div>
+
   <script>
-    // Initialize Auth0
     const auth0 = new Auth0Client({
-      domain: 'your-auth0-domain',
-      client_id: 'your-auth0-client-id',
-      redirect_uri: 'your-redirect-uri',
+      domain: 'dev-7434wwstvrn5w7js.us.auth0.com',
+      client_id: '4J92sRLPp8KtmfGAV2KKwVvr0ZjmwSdJ',
+      audience: 'https://dev-7434wwstvrn5w7js.us.auth0.com/api/v2/',
+      redirect_uri: 'http://localhost:3000/callback', // Replace with your redirect URI
     });
 
-    // Event listener for the login button
     document.getElementById('login-button').addEventListener('click', async () => {
       try {
-        // Trigger login
         await auth0.loginWithRedirect();
       } catch (error) {
         console.error('Login error:', error);
       }
     });
+
+    async function checkAuthentication() {
+      try {
+        const result = await auth0.handleRedirectCallback();
+        const user = await auth0.getUser();
+        document.getElementById('user-info').innerHTML = `
+          <p>Welcome, ${user.name}!</p>
+          <p>Email: ${user.email}</p>
+        `;
+      } catch (error) {
+        console.error('Callback handling error:', error);
+      }
+    }
+
+    checkAuthentication();
   </script>
 
 </body>
