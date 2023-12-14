@@ -1,34 +1,35 @@
-<html>
-  <head>
- <title>
-   login
- </title>   
-  </head>
-  <body>
-    <!-- Include Auth0 SDK -->
-<script src="https://cdn.auth0.com/js/auth0/9.17/auth0.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth0 Login Example</title>
+  <!-- Include Auth0 SDK -->
+  <script src="https://cdn.auth0.com/js/auth0/9.17/auth0.min.js"></script>
+</head>
+<body>
 
-<!-- HTML button for triggering login -->
-<button id="login-button">Login</button>
+  <!-- HTML button for triggering login -->
+  <button id="login-button">Login</button>
 
-<script>
-  // Initialize Auth0
-  const auth0 = new Auth0Client({
-    domain: 'your-auth0-domain',
-    client_id: 'your-auth0-client-id',
-    redirect_uri: 'your-callback-url',
-  });
+  <script>
+    // Initialize Auth0
+    const auth0 = new Auth0Client({
+      domain: 'your-auth0-domain',
+      client_id: 'your-auth0-client-id',
+      redirect_uri: 'your-redirect-uri',
+    });
 
-  // Event listener for the login button
-  document.getElementById('login-button').addEventListener('click', async () => {
-    try {
-      // Trigger login
-      await auth0.loginWithRedirect();
-    } catch (error) {
-      console.error('Login error:', error);
-    }
-  });
-</script>
+    // Event listener for the login button
+    document.getElementById('login-button').addEventListener('click', async () => {
+      try {
+        // Trigger login
+        await auth0.loginWithRedirect();
+      } catch (error) {
+        console.error('Login error:', error);
+      }
+    });
+  </script>
 
-  </body>
+</body>
 </html>
